@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% block content %} 
+	<div class="row divider blue">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ Catagory.name }}
+			{% if login_session.get('credentials') is not none %}
+			<figure class="creator">
+				<br/>
+				<p style = "font-size: 24px">{{user.name}}&nbsp&nbsp<img src= ' {{login_session['picture']}} ' style = "width: 30px; height: 30px;border-radius: 5px;-webkit-border-radius: 15px;-moz-border-radius: 5px;"></p>
+
+			</figure>
+			{% endif %}
+			</h1>
+
+		</div>
+	</div>
+
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		{% if login_session.get('credentials') is not none %}
+		<div class="col-md-11 padding-none">
+			<a href="{{url_for('editCatagory', shop_ID = Catagory.id )}}">
+				<button class="btn btn-default" id="edit">Edit Catagory Shop</button>
+			</a>
+			<a href="{{url_for('addNewCatagory', shop_ID = Catagory.id )}}">
+				<button class="btn btn-default" id="new-Catagory">Add New Catagory</button>
+			</a>
+				<button class="btn btn-default delete" id="delete" onclick="myFunction('Are you sure to delete this Catagory shop?','{{url_for('deleteCatagory', shop_ID = Catagory.id )}}')" >Delete Catagory Shop</button>
+		</div>
+		{% endif %}
+		<div class="col-md-7"></div>
+	</div>
+	{% if Catagorys !=[] %}
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				{% for Catagory in Catagorys %}
+						<div class="menu-item">
+							<h3>{{Catagory.name}}</h3>
+							<p>{{Catagory.description}}</p>
+							<p class="menu-price">Price:{{Catagory.price}}$</p>
+							{% if login_session.get('credentials') is not none %}
+							<button  onclick="window.location.replace('{{url_for('editCatagory', shop_ID = Catagory.id, Catagory_ID=Catagory.id ) }}')">Edit</button>
+							&nbsp
+							<button  onclick="myFunction('Are you sure to delete this Catagory?','{{url_for('deleteCatagory', shop_ID = Catagory.id, Catagory_ID=Catagory.id ) }}')">Delete</button>
+							{% endif %}
+						</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	{% endif %}
+{% endblock %}

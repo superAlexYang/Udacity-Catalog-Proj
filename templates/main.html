@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block content %} 
+<div class="neighborhood-guides">
+        <div class="container">
+            <h2>Catagory Shop Guides</h2>
+            <p>Not sure which shop to visit?</p>
+			{% if login_session.get('credentials') is not none %}
+			<button type="button"><a href = "\new\">New Catagory Shop</a></button>
+			{% endif %}
+    </div>
+    <div class="learn-more">
+	  <div class="container">
+		<div class="row">
+		  {% for shop in Catagorys%}
+	      <div class="col-md-4">
+			<h3>{{shop.name}}</h3>
+			<p>{{shop.description}}.</p>
+			<p><a href="/index/{{shop.id}}">See the Catagorys sold in this shop.</a></p>
+	      </div>
+		 {% endfor %}
+	    </div>
+	  </div>
+	</div>
+{% endblock %}
